@@ -1,0 +1,50 @@
+syntax = "proto3";
+
+package playlist;
+
+option go_package = "./MusicPlayerProject/proto;proto";
+
+service PlaylistService {
+    rpc CreateSong(CreateSongRequest) returns (SongResponse);
+    rpc GetSong(GetSongRequest) returns (SongResponse);
+    rpc UpdateSong(UpdateSongRequest) returns (SongResponse);
+    rpc DeleteSong(DeleteSongRequest) returns (EmptyMessage);
+
+    rpc ListSongs(EmptyMessage) returns (ListSongsResponse);
+
+    rpc Play(EmptyMessage) returns (EmptyMessage);
+    rpc Pause(EmptyMessage) returns (EmptyMessage);
+    rpc Next(EmptyMessage) returns (EmptyMessage);
+    rpc Prev(EmptyMessage) returns (EmptyMessage);
+}
+
+message EmptyMessage {}
+
+message CreateSongRequest {
+    string title = 1;
+    int64 duration = 2;
+}
+
+message GetSongRequest {
+    string title = 1;
+}
+
+message UpdateSongRequest {
+    string oldTitle = 1;
+    string newTitle = 2;
+    int64 duration = 3;
+}
+
+message DeleteSongRequest {
+    string title = 1;
+}
+
+message SongResponse {
+    int32 id = 1;
+    string title = 2;
+    int64 duration = 3;
+}
+
+message ListSongsResponse {
+    repeated SongResponse songs = 1;
+}
